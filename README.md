@@ -2,7 +2,7 @@
 Miscellaneous scripts...
 
 ## Reinstall Packages
-This folder contains scripts I use when I want to reinstall packages (Linux, R or Python) I used in a former configuration.  
+This folder contains scripts I use when I want to reinstall packages (Linux, R or Python3) I used in a former configuration.  
 
 ## Variant_Density_along_DNA_Sequence_1.0
 R script to plot the density of variants contained in a VCF file along the DNA sequence you have annotated (Chromosome, Scaffold, Contig, Whole Genome, ...).  
