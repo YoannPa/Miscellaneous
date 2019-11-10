@@ -21,15 +21,15 @@ installed_packages = pkg_resources.working_set
 inst_pkg_ls = ["{:<40s}{:^20s}\n".format(i.key,i.version) for i in installed_packages]
 
 ##PRINTER
-f = open(outputfilename, 'a')
+#f = open(outputfilename, 'a')
 for i in range(len(inst_pkg_ls)):
-    f.write(inst_pkg_ls[i])
+    output.write(inst_pkg_ls[i])
 
 ##REFERENCE
-f.write(" \n")
-f.write("*"*80 + "\n") 
-f.write(" \n")
-f.write("How to cite : Yoann Pageaud. 'List Python Packages'.\nDKFZ - Heidelberg, Germany. 2019.\n")
-f.write(" \n")
-f.write("*"*80 + "\n")
-f.close()
+output.write(" \n")
+output.write("*"*80 + "\n") 
+output.write(" \n")
+output.write("How to cite : Yoann Pageaud. 'List Python Packages'.\nDKFZ - Heidelberg, Germany. 2019.\n")
+output.write(" \n")
+output.write("*"*80 + "\n")
+output.close()
