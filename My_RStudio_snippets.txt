@@ -137,3 +137,6 @@ snippet hdfn
 	#' @param param1      A \code{type} parameter description.
 	#' @value a \code{type} object returned description.
 	#' @author Yoann Pageaud.
+	#' @export
+	#' @examples
+	#' @references
