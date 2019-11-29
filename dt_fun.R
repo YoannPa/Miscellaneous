@@ -33,6 +33,7 @@
 #' @examples
 #' @references
 
+#TODO: Edit function to make it faster using jangorecki answer: https://stackoverflow.com/questions/31516192/fast-way-to-replace-all-blanks-with-na-in-r-data-table?noredirect=1&lq=1 
 dt.sub<-function(DT, pattern, replacement, ignore.case = FALSE, perl = FALSE,
                  fixed = FALSE, useBytes = FALSE){
   col.blck<-apply(apply(
@@ -45,7 +46,28 @@ dt.sub<-function(DT, pattern, replacement, ignore.case = FALSE, perl = FALSE,
       ignore.case=ignore.case, perl = perl, fixed = fixed, useBytes = useBytes),
       .SDcols=col.blck]
   } else {
-    warning("The pattern has not been found in the data.table.")
+    warning("Pattern not found in data.table object.")
+  }
+  return(DT)
+}
+
+#' @description Remove duplicated column content in a data.table.
+#' 
+#' @param DT A \code{data.table}.
+#' @param ignore A \code{character} or \code{integer} vector specifying columns
+#'               that should be ignored during duplication removal.
+#' @value A \code{data.table}.
+#' @author Yoann Pageaud.
+#' @export
+#' @examples
+#' @references
+
+dt.rm.dup<-function(DT, ignore=NULL){
+  dup.cols<-names(duplicated(t(DT))[duplicated(t(DT))==TRUE])
+  if(length(dup.cols)!=0){
+    DT<-DT[,-c(dup.cols[!dup.cols %in% ignore]), with=FALSE]
+  } else {
+    warning("No duplicated column content found in data.table object.")
   }
   return(DT)
 }
