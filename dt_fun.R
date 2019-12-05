@@ -1,7 +1,6 @@
 ##FUNCTIONS
 
-#' @description Check a data.table for specific pattern and replace by another
-#'              string.
+#' In-place pattern matching and replacement in a data.table.
 #' 
 #' @param DT          A \code{data.table}.
 #' @param pattern     A \code{character} string containing a regular expression
@@ -27,36 +26,46 @@
 #'                    matched as is. Overrides all conflicting arguments.
 #' @param useBytes    A \code{logical}. If TRUE the matching is done
 #'                    byte-by-byte rather than character-by-character.
-#' @value A \code{data.table}.
+#' @return A \code{data.table}.
 #' @author Yoann Pageaud.
 #' @export
 #' @examples
 #' @references
 
-#TODO: Edit function to make it faster using jangorecki answer: https://stackoverflow.com/questions/31516192/fast-way-to-replace-all-blanks-with-na-in-r-data-table?noredirect=1&lq=1 
 dt.sub<-function(DT, pattern, replacement, ignore.case = FALSE, perl = FALSE,
                  fixed = FALSE, useBytes = FALSE){
-  col.blck<-apply(apply(
-    X = DT, MARGIN = 2, FUN = grepl, pattern = pattern, ignore.case=ignore.case,
-    perl = perl, fixed = fixed, useBytes = useBytes), MARGIN = 2, FUN = any)
-  col.blck<-names(col.blck[col.blck==TRUE])
-  if(length(col.blck) != 0){
-    DT<-DT[,(col.blck) := lapply(
-      .SD,gsub, pattern = pattern, replacement = replacement,
-      ignore.case=ignore.case, perl = perl, fixed = fixed, useBytes = useBytes),
-      .SDcols=col.blck]
+  col.blck<-DT[, .(lapply(.SD, grepl, pattern=pattern, ignore.case=ignore.case,
+                          perl = perl, fixed = fixed, useBytes = useBytes),
+                   lapply(.SD, typeof),colnames(DT))][, .(lapply(V1,any),V2,V3)
+                                                      ][V1==TRUE,c("V3","V2")]
+  if(nrow(col.blck) != 0){
+    #If column of type list
+    if(nrow(col.blck[V2=="list"]) != 0){
+      DT[, (col.blck[V2=="list"]$V3) := lapply(
+        .SD, FUN = function(i){
+          lapply(X = i, gsub, pattern = pattern, replacement = replacement,
+                 ignore.case=ignore.case, perl = perl, fixed = fixed,
+                 useBytes = useBytes)
+        }), .SDcols=col.blck[V2=="list"]$V3]
+    }
+    #Any other type of column
+    if(nrow(col.blck[!V2 %in% "list"]) != 0){
+      DT[,(col.blck[!V2 %in% "list"]$V3) := lapply(
+        .SD,gsub, pattern = pattern, replacement = replacement,
+        ignore.case=ignore.case, perl = perl, fixed = fixed, useBytes=useBytes),
+        .SDcols=col.blck[!V2 %in% "list"]$V3]
+    }
   } else {
     warning("Pattern not found in data.table object.")
   }
-  return(DT)
 }
 
-#' @description Remove duplicated column content in a data.table.
+#' Remove duplicated column content in a data.table.
 #' 
 #' @param DT A \code{data.table}.
 #' @param ignore A \code{character} or \code{integer} vector specifying columns
 #'               that should be ignored during duplication removal.
-#' @value A \code{data.table}.
+#' @return A \code{data.table}.
 #' @author Yoann Pageaud.
 #' @export
 #' @examples
