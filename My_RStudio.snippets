@@ -98,18 +98,30 @@ snippet shinyapp
 	
 	shinyApp(ui, server)
 
+snippet shinymod
+	${1:name}_UI <- function(id) {
+	  ns <- NS(id)
+	  tagList(
+		${0}
+	  )
+	}
+	
+	${1:name} <- function(input, output, session) {
+	  
+	}
+
 snippet hdsc
 	#!/usr/bin/env Rscript
 	library("optparse")
 	
 	opt_parser = OptionParser(description = "
 	##_Title_#######################################################################
-	Version = '1.0'
-	Date = '2019-03-30'
+	Version = '0.0.1'
+	Date = '2019-10-01'
 	Author = 'Yoann PAGEAUD'
 	Maintainer = 'Yoann PAGEAUD (yoann.pageaud@gmail.com)'
-	Dependencies = c('R version 3.5.3 (2019-03-11)',
-	'RStudio Version 1.1.463 – © 2009-2018','!!Add dependencies here!!')
+	Dependencies = c('R version 3.6.0 (2019-04-26)',
+	'RStudio Version 1.2.1335-1 – © 2009-2018','!!Add dependencies here!!')
 	Description = 'script description here'
 	################################################################################
 	");
@@ -117,7 +129,8 @@ snippet hdsc
 
 snippet imp
 	##IMPORTS
-	Imports = c("list packages used here")
+	setwd("")
+	Imports = c("pkgs")
 	lapply(Imports, library, character.only = T)
 
 snippet para
@@ -130,13 +143,12 @@ snippet funtitle
 	##FUNCTIONS
 
 snippet hdfn
-	# Fun.name #####################################################################
-	
-	#' @description Function description.
+	#' Write function description here.
 	#' 
-	#' @param param1      A \code{type} parameter description.
-	#' @value a \code{type} object returned description.
+	#' @param param1 A \code{type} parameter description.
+	#' @return A \code{type} object returned description.
 	#' @author Yoann Pageaud.
 	#' @export
 	#' @examples
 	#' @references
+	#' @keywords internal
