@@ -8,7 +8,12 @@ This folder contains scripts I use when I want to reinstall packages (Linux, R o
 R script to plot the density of variants contained in a VCF file along the DNA sequence you have annotated (Chromosome, Scaffold, Contig, Whole Genome, ...).  
 
 ## Others
-* `dt_fun.R` - A script containing functions related to R data.table: `dt.sub()` for pattern matching and substitution applied on data.table object column-wise. It first identifies the columns containing any occurence matching the pattern and then applies the substitution considering only columns where the pattern matched, thus shortening execution time on data.table with many columns. It supports columns of type list. `dt.rm.dup()` removes duplicated columns based on their content (not on their names).  
+* `dt_fun.R` - A script containing functions related to R data.table:
+ - `dt.sub()` for pattern matching and substitution applied on data.table object column-wise. It first identifies the columns containing any occurence matching the pattern and then applies the substitution considering only columns where the pattern matched, thus shortening execution time on data.table with many columns. It supports columns of type list.  
+ - `dt.ls2c()` converts data.table columns of type list to a type vector.  
+ - `dt.rm.dup()` removes duplicated columns based on their content (not on their names).  
+ - `dt.int64tochar()` converts columns of 'double.integer64' type into 'character' type.  
+ - `dt.combine()` combines information using duplicated colnames of a data.table resulting from merge().  
 * `funRDS.R` - A script containing functions related to RDS file manipulations.  
 * `fun_stringeval.R` - A script containing functions related to string evaluations.  
 * `Install_Conf_SSH_Vino.sh` - A script that install packages to use the Reminna video service for distant desktop access. It is also used for setting vino properly. No idea if this still works...  
