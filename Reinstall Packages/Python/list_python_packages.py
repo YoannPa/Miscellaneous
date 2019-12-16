@@ -18,7 +18,7 @@ output=open('{:s}{:s}{:s}'.format(path,"/",outputfilename),'w')
 
 ##LISTING ALL PACKAGES
 installed_packages = pkg_resources.working_set
-inst_pkg_ls = ["{:<40s}{:^20s}\n".format(i.key,i.version) for i in installed_packages]
+inst_pkg_ls = ["{:s}>={:s}\n".format(i.key,i.version) for i in installed_packages]
 
 ##PRINTER
 #f = open(outputfilename, 'a')
