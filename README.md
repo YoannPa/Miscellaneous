@@ -8,6 +8,7 @@ This folder contains scripts I use when I want to reinstall packages (Linux, R o
 R script to plot the density of variants contained in a VCF file along the DNA sequence you have annotated (Chromosome, Scaffold, Contig, Whole Genome, ...).  
 
 ## Others
+* `format_boxplot_stats.R` - A script containing functions to parallel pre-compute boxplot statistics on a dataframe with the possibility to group columns.  
 * `funRDS.R` - A script containing functions related to RDS file manipulations.  
 * `fun_stringeval.R` - A script containing functions related to string evaluations.  
 * `Install_Conf_SSH_Vino.sh` - A script that install packages to use the Reminna video service for distant desktop access. It is also used for setting vino properly. No idea if this still works...  
