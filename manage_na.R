@@ -2,7 +2,7 @@
 
 #' @description Keeps, removes or imputes missing values in a matrix or a
 #' data.frame based on sample groups.
-#' 
+#'
 #' @param data   A \code{matrix} or \code{data.frame} with column names.
 #' @param method A \code{character} which defines the method to use for managing
 #'               NAs:
@@ -13,11 +13,11 @@
 #'               defined in the parameter "groups": e.g. in row 1 if the value
 #'               of sample_1 is NA, the missing value will be imputed using the
 #'               median of values from other samples of the same group than
-#'               sample_1.  
+#'               sample_1.
 #' @param groups A vector of length ncol(data) specifying the groups to which
 #'               samples belong. Order of groups in the vector has to match the
 #'               order of column names in data to properly associate samples and
-#'               groups. 
+#'               groups.
 #' @value A \code{type} object returned description.
 #' @author Yoann Pageaud.
 #' @export
@@ -29,18 +29,17 @@ manage.na<-function(data, method = "remove", groups){
     if(any(is.na(data))) { #If any NA
       if(method == "remove"){ #Remove all rows containing any NA
         data<-data[complete.cases(data),]
-        
-      } else if(method == "impute"){ #Impute NAs with the median value by group 
+
+      } else if(method == "impute"){ #Impute NAs with the median value by group
         #Remove rows containing only NAs
         data<- data[!apply(X = is.na(data),MARGIN = 1,FUN = all), ,drop = FALSE]
-        
+
         #Get groups of samples from sample conditions
         grp_tbl<-data.frame(samples = colnames(data), groups = groups)
         sample_grps<-unique(groups)
-        
+
         #Get median by cell type/line
-        #TODO: Replace for loop by apply()
-        for (row in seq(nrow(data))) {
+        apply(X = head(DMRs), MARGIN = 1, FUN = function(row){
           if(anyNA(data[row,])){
             row_vec<-sapply(sample_grps, function(grp){
               #List sample names matching the group
@@ -66,11 +65,12 @@ manage.na<-function(data, method = "remove", groups){
               }
             } else { stop("Some group medians have for value NA.")
               #TODO: Handle this case if the issue arises.
-            } 
+            }
           }
-        }
+        })
       }
-    }  
+    }
   }
   return(data)
 }
+
