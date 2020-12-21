@@ -1,7 +1,7 @@
 ##FUNCTIONS
 
-#' @description Save a list of named object as independent RDS files.
-#' 
+#' Save a list of named object as independent RDS files.
+#'
 #' @param list.object A \code{list} of named object to serialize. Object names
 #'                    are used as file names.
 #' @param dir.save    A \code{character} to specify the path to a folder where
@@ -16,19 +16,44 @@
 #'                    to indicate the type of compression to be used. Ignored if
 #'                    file is a connection.
 #' @param refhook     A hook function for handling reference objects.
-#' @value A \code{type} object returned description.
+#' @return A \code{type} object returned description.
 #' @author Yoann Pageaud.
 #' @export
 #' @examples
 #' @references
 
-saveRDSls<-function(list.object, dir.save, ascii = FALSE, version = NULL,
-                    compress = TRUE, refhook = NULL){
+saveRDSls <- function(list.object, dir.save, ascii = FALSE, version = NULL,
+                      compress = TRUE, refhook = NULL){
   if(!dir.exists(dir.save)){ dir.create(dir.save) }
-  invisible(lapply(seq_along(list.object),function(i){
+  invisible(lapply(X = seq_along(list.object), FUN = function(i){
     saveRDS(
       object = list.object[[i]],
       file = file.path(dir.save,paste0(names(list.object[i]),".RDS")),
       ascii = ascii, version = version, compress = compress, refhook = refhook)
   }))
 }
+
+#' Loads independent RDS files from a given folder as a list of named objects.
+#'
+#' @param dirRDS  A \code{character} to specify the path to a folder from where
+#'                the RDS files should be loaded.
+#' @param refhook A hook function for handling reference objects.
+#' @return A \code{type} object returned description.
+#' @author Yoann Pageaud.
+#' @export
+#' @examples
+#' @references
+
+readRDSls <- function(dirRDS, refhook = NULL){
+  if(!dir.exists(dirRDS)){ stop("Directory not found.") }
+  ls.RDSname <- list.files(dirRDS)[grepl(
+    pattern = "^.+\\.RDS$", x = list.files(dirRDS), ignore.case = TRUE)]
+  ls.RDS <- lapply(
+    X = file.path(dirRDS, ls.RDSname), FUN = readRDS, refhook = refhook)
+  names(ls.RDS) <- ls.RDSname
+  return(ls.RDS)
+}
+
+
+
+
