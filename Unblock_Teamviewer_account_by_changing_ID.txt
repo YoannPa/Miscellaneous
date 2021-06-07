@@ -1,0 +1,32 @@
+#How to unblock your Teamviewer account by changing user ID
+
+#1 - Stop Teamviewer daemon.
+sudo systemctl stop teamviewerd
+
+#2 - Delete config file.
+sudo rm /opt/teamviewer/config/global.conf
+
+#3 - Look for Networking hardware information to identify the hardware in use for connection. Identify its Mac adress.
+sudo ifconfig
+
+#4 - Stop network.
+sudo systemctl stop networking
+
+#5 - Stop hardware in use for connection (here "enp4s0", replace by your own in following commands).
+sudo ifconfig enp4s0 stop
+
+#6 - Change the last character in the Mac adress of your hardware (Warning: the change is not definitive and will be reset if you reboot). 
+sudo ifconfig enp4s0 hw ether 54:e1:ad:3d:a0:14
+
+#7 - Restart the network hardware.
+sudo ifconfig enp4s0 start
+
+#8 - Restart network.
+sudo systemctl start networking
+
+#9 - Kill and restart wifi if you are using wifi for your connection.
+sudo nmcli radio wifi off
+sudo nmcli radio wifi on
+
+#10 - Restart Teamviewer daemon.
+sudo systemctl start teamviewerd
