@@ -16,19 +16,13 @@ if (is.null(parse_args(opt_parser)$file) != TRUE){print_help(opt_parser);quit()}
 
 ##PARAMETERS
 #Load List of packages 
-ls.R.pkgs<-as.character(unlist(read.table("List_R_Packages.txt")))
+ls.R.pkgs <- as.character(unlist(read.table("List_R_Packages.txt")))
 
 ##MAIN
 #Check for Packages already installed and install package if not installed
-pkgs.to.install <- ls.R.pkgs[!ls.R.pkgs %in% installed.packages()[,1]]
+pkgs.to.install <- ls.R.pkgs[!ls.R.pkgs %in% installed.packages()[, 1]]
 #Check if BiocManager is installed; if no, install it
-if(!"BiocManager" %in% installed.packages()){
-  install.packages("BiocManager")  
-}
+if(!"BiocManager" %in% installed.packages()){ install.packages("BiocManager") }
 #Check if list is empty
-if(length(pkgs.to.install)>0){
-  library(BiocManager)
-  install(as.vector(pkgs.to.install))
-} else {
-  cat("All packages are already installed.")
-}
+if(length(pkgs.to.install)>0){ BiocManager::install(as.vector(pkgs.to.install))
+} else { cat("All packages are already installed.") }

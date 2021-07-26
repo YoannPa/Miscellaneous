@@ -18,8 +18,7 @@ if (is.null(parse_args(opt_parser)$file) != TRUE){print_help(opt_parser);quit()}
 library(methrix)
 library(BSgenome.Hsapiens.UCSC.hg19) 
 
-
-#Example bedgraph files
+#Example bedgraph files 2 cancer samples and 2 normal samples
 bdg_files <- list.files(
   path = system.file('extdata', package = 'methrix'),
   pattern = "*bedGraph\\.gz$",
@@ -65,7 +64,6 @@ if(!require(MafDb.1Kgenomes.phase3.hs37d5)) {
   BiocManager::install("MafDb.1Kgenomes.phase3.hs37d5")} 
 if(!require(GenomicScores)) {
   BiocManager::install("GenomicScores")}
-
 
 library(MafDb.1Kgenomes.phase3.hs37d5)
 library(GenomicScores)
