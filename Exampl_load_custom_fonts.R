@@ -18,6 +18,16 @@ if (is.null(parse_args(opt_parser)$file) != TRUE){print_help(opt_parser);quit()}
 library(showtext)
 
 ##MAIN
+# Tiepolo Book SC
 font_add(family = "Tiepolo Book SC",
          regular = "~/OnlineWebFonts_COM_2914d2f9e80fcca837cb9154ee802e36/ITC Tiepolo W01 Book SC/ITC Tiepolo W01 Book SC.ttf")
+showtext_auto()
+
+# Rotonda Bold
+font_add(family = "Rotonda Bold", regular = "~/1260-font.ttf")
+showtext_auto()
+
+# Rotunda Bold
+font_add(family = "Rotunda Bold",
+         regular = "~/Rotunda_www.Dfonts.org/Rotunda/Rotunda-Bold.otf")
 showtext_auto()
