@@ -1,4 +1,5 @@
 # Miscellaneous
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/YoannPa/Miscellaneous)
 Miscellaneous scripts...
 
 ## Reinstall Packages
