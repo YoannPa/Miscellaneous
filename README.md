@@ -2,6 +2,7 @@
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/YoannPa/Miscellaneous)
 ![GitHub repo size](https://img.shields.io/github/repo-size/YoannPa/Miscellaneous)
+<img src="https://img.shields.io/badge/R%20compatibility-3.6.3%20(2020--02--29)%20----%20%22Holding%20the%20Windsock%22-blue" />
 ![GitHub issues](https://img.shields.io/github/issues-raw/YoannPa/Miscellaneous)
 ![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/YoannPa/Miscellaneous)
 ![GitHub](https://img.shields.io/github/license/YoannPa/Miscellaneous)  
