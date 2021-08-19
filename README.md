@@ -1,6 +1,11 @@
 # Miscellaneous
 
-![GitHub commit activity](https://img.shields.io/github/commit-activity/y/YoannPa/Miscellaneous)  
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/YoannPa/Miscellaneous)
+![GitHub last commit](https://img.shields.io/github/last-commit/YoannPa/Miscellaneous)
+![GitHub repo size](https://img.shields.io/github/repo-size/YoannPa/Miscellaneous)
+![GitHub issues](https://img.shields.io/github/issues-raw/YoannPa/Miscellaneous)
+![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/YoannPa/Miscellaneous)
+![GitHub](https://img.shields.io/github/license/YoannPa/Miscellaneous)  
 
 Miscellaneous scripts...
 
