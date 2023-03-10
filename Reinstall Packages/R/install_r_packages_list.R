@@ -14,9 +14,24 @@ Description = 'Install all packages listed in a text file from Bioconductor.'
 ");
 if (is.null(parse_args(opt_parser)$file) != TRUE){print_help(opt_parser);quit()}
 
+##FUNCTIONS
+ls_pkgs <- function(txt.file = NULL, lib.dir = NULL){
+  if(is.null(txt.file)){
+    if(is.null(lib.dir)){
+      stop("You need to provide either a txt file or a directory.")
+    } else {
+      ls.R.pkgs <- list.dirs(
+        path = lib.dir, recursive = FALSE, full.names = FALSE)
+    }
+  } else {
+    ls.R.pkgs <- as.character(unlist(read.table(txt.file)))
+  }
+  return(ls.R.pkgs)
+}
+
 ##PARAMETERS
-#Load List of packages 
-ls.R.pkgs <- as.character(unlist(read.table("List_R_Packages.txt")))
+#Load List of packages from text file or from a previous library
+ls.R.pkgs <- ls_pkgs(lib.dir = "~/R/x86_64-pc-linux-gnu-library/4.0/")
 
 ##MAIN
 #Check for Packages already installed and install package if not installed
