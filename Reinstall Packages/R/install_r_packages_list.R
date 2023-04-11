@@ -31,8 +31,9 @@ ls_pkgs <- function(txt.file = NULL, lib.dir = NULL){
 
 ##PARAMETERS
 #Load List of packages from text file or from a previous library
-ls.R.pkgs <- ls_pkgs(lib.dir = "~/R/x86_64-pc-linux-gnu-library/4.0/")
-
+# ls.R.pkgs <- ls_pkgs(lib.dir = "~/R/x86_64-pc-linux-gnu-library/4.0/")
+ls.R.pkgs <- read.table(
+  "/media/yoann/6489-5C3B/Backup_Laptop_2023/Ubuntu_Session/List_R_Packages.txt")[, 1]
 ##MAIN
 #Check for Packages already installed and install package if not installed
 pkgs.to.install <- ls.R.pkgs[!ls.R.pkgs %in% installed.packages()[, 1]]
