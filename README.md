@@ -15,6 +15,7 @@ This folder contains scripts I use when I want to reinstall packages (Linux, R o
 R script to plot the density of variants contained in a VCF file along the DNA sequence you have annotated (Chromosome, Scaffold, Contig, Whole Genome, ...).  
 
 ## Others
+* `autorecon_eduroam.sh` - A script automatically reconnecting your laptop when the eduroam network randomly goes down.  
 * `Create_R_hexSticker.R` - Examples of how to generate HexStickers for a R packages.  
 * `Exampl_load_custom_fonts.R` - An example of how to load downloaded fonts in R.  
 * `format_boxplot_stats.R` - A script containing functions to parallel pre-compute boxplot statistics on a dataframe with the possibility to group columns.  
