@@ -17,7 +17,7 @@
 while true;
 do
 	networkname=$(nmcli -t -f NAME c show --active);
-	sleep 2;
+	sleep 1;
 	if [[ $networkname == "eduroam" ]]; then
 		# echo "$networkname";
 		if ! pingout=$(ping -c 1 google.com > /dev/null); then
