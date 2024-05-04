@@ -99,15 +99,20 @@ snippet shinyapp
 	shinyApp(ui, server)
 
 snippet shinymod
-	${1:name}_UI <- function(id) {
+	${1:name}UI <- function(id) {
 	  ns <- NS(id)
 	  tagList(
 		${0}
 	  )
 	}
 	
-	${1:name} <- function(input, output, session) {
-	  
+	${1:name}Server <- function(id) {
+	  moduleServer(
+	    id,
+	    function(input, output, session) {
+	      
+	    }
+	  )
 	}
 
 snippet hdsc
@@ -115,13 +120,13 @@ snippet hdsc
 	library("optparse")
 	
 	opt_parser = OptionParser(description = "
-	##_Create Annotation Table Bladder Cancer HM450K_###############################
+	##_Script title_################################################################
 	Version = '0.0.1'
-	Date = '2021-08-17'
+	Date = '2024-01-15'
 	Author = 'Yoann PAGEAUD'
 	Maintainer = 'Yoann PAGEAUD (yoann.pageaud@gmail.com)'
-	Dependencies = c('R version 4.0.5 (2021-03-31)',
-	'RStudio Version 1.4.1106 - © 2009-2021','!!Add dependencies here!!')
+	Dependencies = c('R version 4.3.3 (2024-02-29)',
+	'RStudio 2023.09.1 Build 494 © 2009-2023','!!Add dependencies here!!')
 	Description = 'script description here'
 	################################################################################
 	");
