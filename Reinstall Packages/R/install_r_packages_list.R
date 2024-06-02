@@ -14,30 +14,45 @@ Description = 'Install all packages listed in a text file from Bioconductor.'
 ");
 if (is.null(parse_args(opt_parser)$file) != TRUE){print_help(opt_parser);quit()}
 
-##FUNCTIONS
+# LOAD THIS FUNCTION
 ls_pkgs <- function(txt.file = NULL, lib.dir = NULL){
   if(is.null(txt.file)){
     if(is.null(lib.dir)){
-      stop("You need to provide either a txt file or a directory.")
+      stop("You need to provide either a txt file or a lib directory.")
     } else {
-      ls.R.pkgs <- list.dirs(
-        path = lib.dir, recursive = FALSE, full.names = FALSE)
+      ls.R.pkgs <- installed.packages(
+        lib.loc = lib.dir)[, c("Package", "Version")]
     }
   } else {
-    ls.R.pkgs <- as.character(unlist(read.table(txt.file)))
+    ls.R.pkgs <- read.table(txt.file)
+    colnames(ls.R.pkgs) <- c("Package", "Version")
   }
   return(ls.R.pkgs)
 }
 
-##PARAMETERS
-#Load List of packages from text file or from a previous library
-# ls.R.pkgs <- ls_pkgs(lib.dir = "~/R/x86_64-pc-linux-gnu-library/4.0/")
-ls.R.pkgs <- read.table("~/List_R_Packages.txt")[, 1]
-##MAIN
-#Check for Packages already installed and install package if not installed
-pkgs.to.install <- ls.R.pkgs[!ls.R.pkgs %in% installed.packages()[, 1]]
-#Check if BiocManager is installed; if no, install it
-if(!"BiocManager" %in% installed.packages()){ install.packages("BiocManager") }
-#Check if list is empty
-if(length(pkgs.to.install)>0){ BiocManager::install(as.vector(pkgs.to.install))
+# RUN THIS with either a .txt file or an old lib dir.
+ls.R.pkgs <- ls_pkgs(txt.file = "R_4.3_packages.txt")
+ls.R.pkgs <- ls_pkgs(lib.dir = "~/R/x86_64-pc-linux-gnu-library/4.3/")
+
+# OPTIONAL (recommended) install BiocManager
+if(!"BiocManager" %in% installed.packages()){
+  bioc_mng_v <- unlist(ls.R.pkgs[ls.R.pkgs[, "Package"] == "BiocManager",])[2]
+  install.packages("BiocManager", version = bioc_mng_v)
+}
+
+# INSTALL PACKAGES
+pkg_ver <- paste(ls.R.pkgs[,"Package"], ls.R.pkgs[, "Version"], sep = "|")
+pkg_inst <- paste(
+  installed.packages()[, "Package"], installed.packages()[, "Version"],
+  sep = "|")
+ls.R.pkgs <- ls.R.pkgs[!pkg_ver %in% pkg_inst, ]
+if(nrow(ls.R.pkgs) > 0){
+  CRAN_pkg <- ls.R.pkgs[ls.R.pkgs[, "Package"] %in% available.packages(),]
+  other_pkg <- ls.R.pkgs[!ls.R.pkgs[, "Package"] %in% available.packages(),]
+  if(nrow(CRAN_pkg)>0){
+    install.packages(CRAN_pkg[, "Package"], version = CRAN_pkg[, "Version"])
+  }
+  if(nrow(other_pkg)>0 & "BiocManager" %in% installed.packages()[, "Package"]){
+    BiocManager::install(pkgs = other_pkg[, "Package"])
+  }
 } else { cat("All packages are already installed.") }
