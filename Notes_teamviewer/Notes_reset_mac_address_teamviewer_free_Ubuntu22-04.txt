@@ -1,0 +1,10 @@
+
+sudo teamviewer info
+sudo systemctl stop teamviewerd.service
+sudo rm /opt/teamviewer/config/global.conf
+ip address
+sudo ip link set dev enp39s0 down
+sudo ip link set dev enp39s0 address 00:d8:61:a3:b5:be # Thats the new MAC address
+sudo ip link set dev enp39s0 up
+ip address
+sudo systemctl start teamviewerd.service
